@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 500 500" width="100%" height="100%" preserveAspectRatio="xMidYMid meet">
+  <!-- Définitions des dégradés et filtres -->
+  <defs>
+    <!-- Dégradé galaxie -->
+    <linearGradient id="galaxyGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#9333EA"/>
+      <stop offset="50%" style="stop-color:#4F46E5"/>
+      <stop offset="100%" style="stop-color:#3B82F6"/>
+    </linearGradient>
+
+    <!-- Dégradé tentacules -->
+    <linearGradient id="tentacleGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#9333EA"/>
+      <stop offset="50%" style="stop-color:#7C3AED"/>
+      <stop offset="100%" style="stop-color:#6366F1"/>
+    </linearGradient>
+
+    <!-- Dégradé profondeurs -->
+    <radialGradient id="depthGradient" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+      <stop offset="0%" style="stop-color:#1E1B4B"/>
+      <stop offset="100%" style="stop-color:#0F172A"/>
+    </radialGradient>
+
+    <!-- Effet de lueur -->
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="
+        1 0 0 0 0
+        0 1 0 0 0
+        0 0 1 0 0
+        0 0 0 15 -5
+      " result="glow"/>
+      <feMerge>
+        <feMergeNode in="glow"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Effet 3D -->
+    <filter id="bevel" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="2" result="blur"/>
+      <feSpecularLighting in="blur" surfaceScale="5" specularConstant="1" specularExponent="20" lighting-color="#white" result="specular">
+        <fePointLight x="250" y="250" z="100"/>
+      </feSpecularLighting>
+      <feComposite in="specular" in2="SourceAlpha" operator="in" result="specular"/>
+      <feComposite in="SourceGraphic" in2="specular" operator="arithmetic" k1="0" k2="1" k3="1" k4="0"/>
+    </filter>
+
+    <!-- Texture étoiles -->
+    <pattern id="stars" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="10" r="0.5" fill="#fff" opacity="0.5"/>
+      <circle cx="30" cy="40" r="0.3" fill="#fff" opacity="0.3"/>
+      <circle cx="70" cy="20" r="0.4" fill="#fff" opacity="0.4"/>
+      <circle cx="90" cy="80" r="0.2" fill="#fff" opacity="0.6"/>
+    </pattern>
+  </defs>
+
+  <!-- Fond avec effet de profondeur -->
+  <circle cx="250" cy="250" r="240" fill="url(#depthGradient)"/>
+  <circle cx="250" cy="250" r="240" fill="url(#stars)" opacity="0.3"/>
+
+  <!-- Cercle central galaxie -->
+  <circle cx="250" cy="250" r="150" fill="url(#galaxyGradient)" filter="url(#bevel)" opacity="0.9"/>
+
+  <!-- Tentacules -->
+  <g filter="url(#glow)">
+    <!-- Tentacule 1 -->
+    <path d="M250,250 Q150,300 100,400 Q90,410 100,390 Q150,290 250,250" fill="url(#tentacleGradient)">
+      <animateTransform
+        attributeName="transform"
+        type="rotate"
+        from="0 250 250"
+        to="10 250 250"
+        dur="3s"
+        repeatCount="indefinite"
+        additive="sum"
+      />
+    </path>
+
+    <!-- Tentacule 2 -->
+    <path d="M250,250 Q350,300 400,400 Q410,410 400,390 Q350,290 250,250" fill="url(#tentacleGradient)">
+      <animateTransform
+        attributeName="transform"
+        type="rotate"
+        from="0 250 250"
+        to="-10 250 250"
+        dur="2.5s"
+        repeatCount="indefinite"
+        additive="sum"
+      />
+    </path>
+
+    <!-- Tentacule 3 -->
+    <path d="M250,250 Q350,200 400,100 Q410,90 400,110 Q350,210 250,250" fill="url(#tentacleGradient)">
+      <animateTransform
+        attributeName="transform"
+        type="rotate"
+        from="0 250 250"
+        to="15 250 250"
+        dur="3.5s"
+        repeatCount="indefinite"
+        additive="sum"
+      />
+    </path>
+
+    <!-- Tentacule 4 -->
+    <path d="M250,250 Q150,200 100,100 Q90,90 100,110 Q150,210 250,250" fill="url(#tentacleGradient)">
+      <animateTransform
+        attributeName="transform"
+        type="rotate"
+        from="0 250 250"
+        to="-15 250 250"
+        dur="4s"
+        repeatCount="indefinite"
+        additive="sum"
+      />
+    </path>
+  </g>
+
+  <!-- Éléments galaxie -->
+  <g opacity="0.6">
+    <circle cx="200" cy="200" r="5" fill="#fff" filter="url(#glow)">
+      <animate attributeName="opacity" values="0.3;0.8;0.3" dur="2s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="300" cy="300" r="3" fill="#fff" filter="url(#glow)">
+      <animate attributeName="opacity" values="0.5;1;0.5" dur="3s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="250" cy="180" r="4" fill="#fff" filter="url(#glow)">
+      <animate attributeName="opacity" values="0.4;0.9;0.4" dur="2.5s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+
+  <!-- Bulles -->
+  <g opacity="0.4">
+    <circle cx="180" cy="280" r="8" fill="url(#galaxyGradient)" filter="url(#glow)">
+      <animate attributeName="cy" values="280;260;280" dur="4s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="320" cy="220" r="6" fill="url(#galaxyGradient)" filter="url(#glow)">
+      <animate attributeName="cy" values="220;200;220" dur="3s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="270" cy="350" r="5" fill="url(#galaxyGradient)" filter="url(#glow)">
+      <animate attributeName="cy" values="350;330;350" dur="5s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+
+  <!-- Effet de brillance central -->
+  <circle cx="250" cy="250" r="50" fill="url(#galaxyGradient)" filter="url(#glow)" opacity="0.6">
+    <animate attributeName="r" values="50;55;50" dur="3s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.6;0.8;0.6" dur="3s" repeatCount="indefinite"/>
+  </circle>
+</svg>

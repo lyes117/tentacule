@@ -1,0 +1,304 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --star-density: 0.8;
+  --star-opacity: 0.1;
+  --jellyfish-color: rgba(147, 51, 234, 0.2);
+  --tentacle-color: rgba(147, 51, 234, 0.1);
+}
+
+/* Base styles */
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: #0a0a16;
+  color: #fff;
+  overflow-x: hidden;
+  cursor: url("data:image/svg+xml,%3Csvg width='32' height='32' viewBox='0 0 32 32' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='16' cy='16' r='4' fill='%239333EA' fill-opacity='0.5'/%3E%3C/svg%3E"),
+    auto;
+}
+
+/* Background styles */
+.space-bg {
+  background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+  background-attachment: fixed;
+}
+
+/* Component styles */
+.cosmic-input {
+  @apply bg-gray-900/50 border border-gray-700/50 text-white placeholder-gray-500;
+  @apply focus:border-purple-500/50 focus:ring-1 focus:ring-purple-500/50;
+  @apply transition-all duration-200;
+}
+
+.cosmic-button {
+  @apply bg-gradient-to-r from-purple-600 to-blue-600;
+  @apply hover:from-purple-700 hover:to-blue-700;
+  @apply disabled:opacity-50 disabled:cursor-not-allowed;
+  @apply transition-all duration-200;
+  position: relative;
+  overflow: hidden;
+}
+
+.cosmic-button::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.2), transparent 50%);
+  transform: scale(0);
+  opacity: 0;
+  transition: transform 0.6s, opacity 0.6s;
+}
+
+.cosmic-button:hover::after {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.cosmic-card {
+  @apply bg-gray-900/50 backdrop-blur-lg;
+  @apply border border-gray-700/50;
+  @apply transition-all duration-200;
+}
+
+/* Navigation effects */
+.glass-effect {
+  @apply bg-gray-900/20 backdrop-blur-lg border-b border-white/10;
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-effect::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  transition: 0.5s;
+}
+
+.glass-effect:hover::before {
+  left: 100%;
+}
+
+/* Star effects */
+.stars {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background-image: 
+    radial-gradient(2px 2px at 20px 30px, #eee, rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 40px 70px, #fff, rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 50px 160px, #ddd, rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 90px 40px, #fff, rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 130px 80px, #fff, rgba(0,0,0,0));
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  animation: stars 4s linear infinite;
+  opacity: var(--star-opacity);
+}
+
+/* Jellyfish animation */
+.jellyfish {
+  position: absolute;
+  width: 100px;
+  height: 120px;
+  transition: transform 0.1s ease-out;
+  pointer-events: none;
+  z-index: 20;
+}
+
+.jellyfish-body {
+  width: 100%;
+  height: 60%;
+  background: radial-gradient(circle at 50% 50%, var(--jellyfish-color), transparent 70%);
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  animation: pulse 4s ease-in-out infinite;
+}
+
+.jellyfish-tentacles {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60%;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    var(--tentacle-color) 50%,
+    transparent 100%
+  );
+  clip-path: polygon(
+    20% 0%, 80% 0%,
+    90% 35%, 70% 70%,
+    50% 100%, 30% 70%,
+    10% 35%
+  );
+  animation: tentacles 3s ease-in-out infinite;
+}
+
+/* Bubble animation */
+.bubble {
+  position: absolute;
+  background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.1), transparent 70%);
+  border-radius: 50%;
+  animation: rise 15s linear infinite;
+}
+
+/* Matrix effect */
+.matrix-rain {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  font-family: 'Courier New', monospace;
+  font-size: 1.2rem;
+  color: #0f0;
+  text-shadow: 0 0 5px #0f0;
+  overflow: hidden;
+}
+
+/* Animations */
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.1); opacity: 0.8; }
+}
+
+@keyframes tentacles {
+  0%, 100% { transform: scaleY(0.8) rotate(0deg); }
+  50% { transform: scaleY(1.2) rotate(2deg); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes rise {
+  0% {
+    transform: translateY(100vh) scale(1);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(-20vh) scale(0);
+    opacity: 0;
+  }
+}
+
+@keyframes stars {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-100px); }
+}
+
+/* Hover effects */
+.hover-glow {
+  position: relative;
+}
+
+.hover-glow::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(147,51,234,0.2), transparent 50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+
+.hover-glow:hover::after {
+  opacity: 1;
+}
+
+/* Text selection effect */
+::selection {
+  background: rgba(147, 51, 234, 0.2);
+  color: #fff;
+}
+
+/* Hidden message */
+.hidden-message {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.hidden-message:hover {
+  opacity: 1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .jellyfish {
+    display: none;
+  }
+}
+
+/* Custom cursor */
+.custom-cursor {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(147, 51, 234, 0.5);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform 0.1s ease;
+}
+
+/* Feature card enhancements */
+.feature-card {
+  @apply cosmic-card p-6 rounded-xl;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px) rotateX(5deg) rotateY(5deg);
+  box-shadow: 0 20px 40px -20px rgba(147, 51, 234, 0.3);
+}
+
+/* Loading spinner */
+.cosmic-spinner {
+  @apply w-8 h-8 border-4 border-purple-500 border-t-transparent rounded-full animate-spin;
+}
+
+/* Additional animations */
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.cosmic-pulse {
+  animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Easter egg animations */
+@keyframes secret-reveal {
+  0% { transform: scale(0) rotate(0deg); opacity: 0; }
+  50% { transform: scale(1.2) rotate(180deg); opacity: 0.8; }
+  100% { transform: scale(1) rotate(360deg); opacity: 1; }
+}
+
+.secret-reveal {
+  animation: secret-reveal 0.5s ease-out forwards;
+}
